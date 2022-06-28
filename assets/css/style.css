@@ -440,6 +440,16 @@ body{
     width: 20% !important;
 }
 
+.add-to-cart-container {
+    z-index: 99;
+}
+
+.add-to-cart-container .bg-white {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
 
 @media (max-width: 768px) {
     .special-banner-description {

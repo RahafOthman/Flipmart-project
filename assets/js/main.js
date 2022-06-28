@@ -304,7 +304,9 @@ function addCartClick(parentObj, obj){
 
 function addToCart(productObj){
     
+
     let productIndex = cart.findIndex(item => item.productName === productObj.productName);
+    // Checking the product's name isn't the most effective way and should be replaced with a unique product's ID
     if(productIndex === -1){
         let newObj = {...productObj,
             quantity: 1};
@@ -314,6 +316,24 @@ function addToCart(productObj){
         cart[productIndex].quantity++;
     }
     
+    displayAddedProduct(productObj);
+
+}
+
+function displayAddedProduct(productObj){
+    var topContainer = document.createElement("div");
+    topContainer.classList.add('w-100', 'h-100', 'position-fixed', 'add-to-cart-container');
+
+    var background = document.createElement("div");
+    background.classList.add('w-100', 'h-100', 'position-absolute', 'bg-dark', 'opacity-75');
+
+    var displayScreen = document.createElement("div");
+    displayScreen.classList.add('w-50', 'h-25', 'position-absolute', 'bg-white', 'text-center');
+
+    topContainer.appendChild(background);
+    topContainer.appendChild(displayScreen);
+
+    document.body.insertAdjacentElement('afterbegin',topContainer);
 }
 
 function findPriceAfterDiscount(price,discount){
