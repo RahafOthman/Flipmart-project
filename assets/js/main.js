@@ -1,5 +1,6 @@
 var specialProducts = [
-    {productName: "Canon EOS 5D",
+    {   productID: "sp-0"
+        ,productName: "Canon EOS 5D",
       discount: 20.0,
       realPrice:  43.08,
       numberOfStars: 5,
@@ -7,7 +8,8 @@ var specialProducts = [
       description: ""
 
     },
-    {productName: "Canon EOS 5D",
+    {   productID: "sp-1"
+        ,productName: "Canon EOS 5D",
       discount: 20.0,
       realPrice:  43.08,
       numberOfStars: 5,
@@ -15,7 +17,8 @@ var specialProducts = [
       description: "",
     
     },
-    {productName: "HTC Touch HD",
+    {   productID: "sp-2"
+        ,productName: "HTC Touch HD",
       discount: 5.0,
       realPrice:  34.00,
       numberOfStars: 4,
@@ -23,7 +26,8 @@ var specialProducts = [
       description: ""
     
     },
-    {productName: "HTC Touch HD",
+    {   productID: "sp-3"
+        ,productName: "HTC Touch HD",
       discount: 5.0,
       realPrice:  34.00,
       numberOfStars: 4,
@@ -31,7 +35,8 @@ var specialProducts = [
       description: ""
     
     },
-    {productName: "Canon EOS 5D",
+    {   productID: "sp-4"
+        ,productName: "Canon EOS 5D",
       discount: 20.0,
       realPrice:  43.08,
       numberOfStars: 4,
@@ -39,7 +44,8 @@ var specialProducts = [
       description: ""
     
     },
-    {productName: "Canon EOS 5D",
+    {   productID: "sp-5"
+        ,productName: "Canon EOS 5D",
       discount: 20.0,
       realPrice:  43.08,
       numberOfStars: 3,
@@ -47,7 +53,8 @@ var specialProducts = [
       description: ""
     
     },
-    {productName: "HTC Touch HD",
+    {   productID: "sp-6"
+        ,productName: "HTC Touch HD",
       discount: 5.0,
       realPrice:  34.00,
       numberOfStars: 4,
@@ -55,7 +62,8 @@ var specialProducts = [
       description: ""
     
     },
-    {productName: "HTC Touch HD",
+    {   productID: "sp-7"
+        ,productName: "HTC Touch HD",
       discount: 5.0,
       realPrice:  34.00,
       numberOfStars: 4,
@@ -63,7 +71,8 @@ var specialProducts = [
       description: ""
     
     },
-    {productName: "Canon EOS 5D",
+    {   productID: "sp-8"
+        ,productName: "Canon EOS 5D",
       discount: 20.0,
       realPrice:  43.08,
       numberOfStars: 5,
@@ -71,7 +80,8 @@ var specialProducts = [
       description: ""
     
     },
-    {productName: "Canon EOS 5D",
+    {   productID: "sp-9"
+        ,productName: "Canon EOS 5D",
       discount: 20.0,
       realPrice:  43.08,
       numberOfStars: 5,
@@ -116,6 +126,7 @@ let tempProductsDeals = [
     }
 ];
 
+let cart = [];
 
 let start = 0, end = 3;
 let startDeals = 0, endDeals=1;
@@ -205,8 +216,10 @@ function displaySpecialProduct(startColumn,endColumn, productsArray, arrowsDocum
         product += `<div class="special-product-column flex-column d-none active">`;
         for(let j = 0 ; j < 2 ; j++){
             if(i+j < productsArray.length)
+                // addToCart(productsArray[i+j]);
+
                 product += `
-                    <div class=" special-product-item m-lg-2">
+                    <div class="shadow special-product-item m-lg-2">
                         <div class="special-product-image position-relative">
                             <img src="${productsArray[i+j].imageUrl}" alt="${productsArray[i+j].productName}" class="special-product-img w-100">
                             <div class="position-absolute special-products-icons text-center w-100">
@@ -220,9 +233,9 @@ function displaySpecialProduct(startColumn,endColumn, productsArray, arrowsDocum
                                 ${findStars(productsArray[i+j].numberOfStars)}
                             </div>
                             <span class="currentPrice me-2">$${findPriceAfterDiscount(productsArray[i+j].realPrice ,productsArray[i+j].discount)}</span>
-                            <span class="realPrice opacity-50 text-decoration-line-through">$${printPrice(`${productsArray[i+j].realPrice}`)}</span>
-                            <div class="special-product-addBtn w-100 h-100 position-absolute">
-                                <div class="btn btn-primary"><i class="fa-solid fa-cart-plus"></i> Add To Cart</div>
+                            <span class="realPrice opacity-75 text-decoration-line-through">$${printPrice(`${productsArray[i+j].realPrice}`)}</span>
+                            <div class="special-product-addBtn special-${i+j} w-100 h-100 position-absolute">
+
                             </div>
                         </div>
                     </div>
@@ -232,6 +245,9 @@ function displaySpecialProduct(startColumn,endColumn, productsArray, arrowsDocum
     }
     setArrows(startColumn, endColumn, arrowsDocument, productsArray.length);
     productsDocument.innerHTML = product;
+    for(let i = startColumn*2 ; i < endColumn*2 ; i++){
+        addCartClick(document.querySelector(`.special-${i}`),productsArray[i]);
+    }
 }
 
 function displayTempDeals(startColumn,endColumn, productsArray, arrowsDocument, productsDocument){
@@ -254,19 +270,51 @@ function displayTempDeals(startColumn,endColumn, productsArray, arrowsDocument, 
                             </div>
                             <span class="currentPrice me-2">$${findPriceAfterDiscount(productsArray[i].realPrice ,productsArray[i].discount)}</span>
                             <span class="realPrice opacity-50 text-decoration-line-through">$${printPrice(`${productsArray[i].realPrice}`)}</span>
-                            <div class="special-product-addBtn w-100 h-100 position-absolute">
-                                <div class="btn btn-primary"><i class="fa-solid fa-cart-plus"></i> Add To Cart</div>
+                            <div class="special-product-addBtn deal-${i} w-100 h-100 position-absolute">
+
                             </div>
                         </div>
             </div>
         `;
+        // <div class="btn btn-primary" onclick="addToCart(${JSON.stringify(productsArray[i])})"></div>
+        
+        //
     }
-    console.log((product));
     setArrows(startColumn, endColumn, arrowsDocument, productsArray.length);
     setNextArrow(endColumn, arrowsDocument, productsArray.length);
     productsDocument.innerHTML = product;
+    for(let i = startColumn ; i < endColumn ; i++){
+        addCartClick(document.querySelector(`.deal-${i}`),productsArray[i]);
+    }
+
 }
 
+
+function addCartClick(parentObj, obj){
+        var o=document.createElement("div");
+        o.innerHTML=`<i class="fa-solid fa-cart-plus"></i> Add To Cart`;
+        o.classList.add('btn', 'btn-primary');
+
+        o.onclick =  () => {
+            addToCart(obj);
+        }
+
+        parentObj.appendChild(o);
+}
+
+function addToCart(productObj){
+    
+    let productIndex = cart.findIndex(item => item.productName === productObj.productName);
+    if(productIndex === -1){
+        let newObj = {...productObj,
+            quantity: 1};
+
+        cart.push(newObj);
+    } else {
+        cart[productIndex].quantity++;
+    }
+    
+}
 
 function findPriceAfterDiscount(price,discount){
     return printPrice(`${(100.0 - discount)/100 * price}`);
