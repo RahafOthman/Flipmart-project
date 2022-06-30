@@ -195,7 +195,7 @@ function displayCartNumber(){
     document.querySelector('.header__cart').innerHTML = `My Cart (${cartValues.quantity})`;
 }
 
-function updateLocalStorage(){
+function updateCartLocalStorage(){
     localStorage.setItem("cart", JSON.stringify(cart));
 }
 
@@ -332,7 +332,7 @@ function addToCart(productObj, displayScreen=false){
 
     displayCartNumber();
     
-    updateLocalStorage();
+    updateCartLocalStorage();
 
     if(displayScreen) displayAddedProduct(productObj);
 
@@ -413,7 +413,6 @@ function findCartTotalAmount(cart){
     cart.forEach(item => {
         quantity += item.quantity;
         price += (item.quantity * parseFloat(findPriceAfterDiscount(item.realPrice, item.discount)));
-        console.log(findPriceAfterDiscount(item.realPrice, item.discount));
     });
     return {quantity, price};
 }
