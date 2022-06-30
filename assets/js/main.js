@@ -132,6 +132,13 @@ let start = 0, end = 3;
 let startDeals = 0, endDeals=1;
 
 window.onload = () => {
+    if(localStorage.getItem("cart") != null){
+        cart = JSON.parse(localStorage.getItem("cart"));
+        displayCartNumber();
+    } else {
+        cart = [];
+    }
+
     if(window.outerWidth < 768) {
         start = 0;
         end = 3;
@@ -180,6 +187,16 @@ window.onload = () => {
             }
         }
     });
+}
+
+function displayCartNumber(){
+    let cartValues = findCartTotalAmount(cart);
+    
+    document.querySelector('.header__cart').innerHTML = `My Cart (${cartValues.quantity})`;
+}
+
+function updateLocalStorage(){
+    localStorage.setItem("cart", JSON.stringify(cart));
 }
 
 function setArrows(start, end, documentArrows, productsArrayLength){
@@ -276,9 +293,6 @@ function displayTempDeals(startColumn,endColumn, productsArray, arrowsDocument, 
                         </div>
             </div>
         `;
-        // <div class="btn btn-primary" onclick="addToCart(${JSON.stringify(productsArray[i])})"></div>
-        
-        //
     }
     setArrows(startColumn, endColumn, arrowsDocument, productsArray.length);
     setNextArrow(endColumn, arrowsDocument, productsArray.length);
@@ -296,13 +310,13 @@ function addCartClick(parentObj, obj){
         o.classList.add('btn', 'btn-primary');
 
         o.onclick =  () => {
-            addToCart(obj);
+            addToCart(obj, true);
         }
 
         parentObj.appendChild(o);
 }
 
-function addToCart(productObj){
+function addToCart(productObj, displayScreen=false){
     
 
     let productIndex = cart.findIndex(item => item.productName === productObj.productName);
@@ -315,8 +329,12 @@ function addToCart(productObj){
     } else {
         cart[productIndex].quantity++;
     }
+
+    displayCartNumber();
     
-    displayAddedProduct(productObj);
+    updateLocalStorage();
+
+    if(displayScreen) displayAddedProduct(productObj);
 
 }
 
@@ -326,14 +344,78 @@ function displayAddedProduct(productObj){
 
     var background = document.createElement("div");
     background.classList.add('w-100', 'h-100', 'position-absolute', 'bg-dark', 'opacity-75');
+    background.onclick = closeAddedProduct;
 
     var displayScreen = document.createElement("div");
-    displayScreen.classList.add('w-50', 'h-25', 'position-absolute', 'bg-white', 'text-center');
+    displayScreen.classList.add('w-50', 'h-30', 'position-absolute', 'bg-white', 'add-to-cart-content');
 
+    let displayContent = document.createElement("div");
+    displayContent.classList.add('w-100', 'h-100', 'd-flex', 'flex-row', 'position-relative');
+
+    let cartValues = findCartTotalAmount(cart);
+    
+    displayCartNumber();
+
+    let content = ` <div class="w-35 h-100 position-relative d-flex flex-row add-to-cart-leftside">
+                        <div class="w-60 h-100 position-relative">
+                            <img src="${productObj.imageUrl}" alt="${productObj.productName}" class="w-60 h-50 position-relative rounded h-v-center">
+                        </div>
+                        <div class="me-2 h-100 w-40 text-center">
+                            <p class="position-relative vertical-center add-to-cart-productName">${productObj.productName}</p>
+                        </div>
+                    </div>
+                    <div class="w-65 h-100 position-relative add-to-cart-rightside text-center">
+                        <p class="mt-3 fs-5 text-styles text-primary">Added to cart!</p>
+                        <div class="text-start d-flex flex-row justify-content-evenly fs-6 font-bold">
+                            <div class="d-flex flex-column">
+                                <p>Products count:</p>
+                                <p>Total Price:</p>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <p>${cartValues.quantity}</p>
+                                <p>${printPrice(`${cartValues.price}`)}$</p>
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <div class="btn btn-primary" onclick="closeAddedProduct()">
+                                Continue Shopping..
+                            </div>
+                            <a href="assets/html/cart.html" class="btn btn-primary">
+                                Go to Checkout!
+                            </a>
+                        </div>
+                    </div>`
+
+    displayContent.innerHTML = content;
+
+    displayScreen.appendChild(displayContent);
+
+    
     topContainer.appendChild(background);
     topContainer.appendChild(displayScreen);
 
     document.body.insertAdjacentElement('afterbegin',topContainer);
+
+}
+
+function closeAddedProduct(){
+    var container = document.querySelector('.add-to-cart-container');
+    container.style.transform= 'scale(0.01)';
+    container.style.visibility = "hidden";
+    setTimeout(() => {
+        document.body.removeChild(container);
+    }, 500);
+}
+
+
+function findCartTotalAmount(cart){
+    let quantity=0, price = 0;
+    cart.forEach(item => {
+        quantity += item.quantity;
+        price += (item.quantity * parseFloat(findPriceAfterDiscount(item.realPrice, item.discount)));
+        console.log(findPriceAfterDiscount(item.realPrice, item.discount));
+    });
+    return {quantity, price};
 }
 
 function findPriceAfterDiscount(price,discount){
@@ -350,7 +432,7 @@ function printPrice(price){
 function findStars(numberOfStars){
     let stars = "";
     let i;
-    for(i = 0 ; i < numberOfStars ; i++){
+    for(i = 0 ; i < numberOfStars && i < 5 ; i++){
         stars += `<i class="fas fa-star"></i>`;
     }
     for(let j = i ; j < 5 ; j++){
