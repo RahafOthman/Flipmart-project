@@ -1,4 +1,5 @@
 let cart = [];
+let orders = [];
 
 window.onload = () => {
     if(localStorage.getItem("cart") != null){
@@ -64,18 +65,14 @@ function displayCartItems(){
                 </div>
                 <div class="cart-item-row--rightside-${index} d-flex flex-row justify-content-end">
                     <p class="cart-item-row-price fs-6 font-bold my-auto">${printPrice(`${itemPrice}`)}$</p>
-                    
                 </div>
             </div>
         `;
     });
 
-    cartItems+= `<div class="cart-item-row w-100 mb-3 d-flex flex-row justify-content-center align-items-end text-styles font-bold">
-                    <p class="me-4">Total Price:</p>
-                    <p class="text-primary">${printPrice(`${totalPrice}`)}$</p>
-                </div>`;
-
     cartBody.innerHTML = cartItems;
+
+    displayCartFooter(totalPrice);
 
     cart.forEach((item, index) => {
         let parentObj = document.querySelector(`.cart-item-row--rightside-${index}`);
@@ -85,6 +82,52 @@ function displayCartItems(){
 
 }
 
+function displayCartFooter(totalPrice){
+    if(!document.querySelector('.cart-footer')){
+        var cartFooter = document.createElement('div');
+        cartFooter.classList.add('cart-footer', 'w-25', 'mb-3', 'd-flex', 'flex-column', 'justify-content-center', 'mx-auto');
+
+        var cartPriceContainer = document.createElement("div");
+        cartPriceContainer.classList.add('w-100', 'mb-3', 'd-flex', 'flex-row', 'text-styles', 'font-bold', 'fs-6', 'justify-content-center');
+        cartPriceContainer.innerHTML = ` <p class="me-4">Total Price:</p>
+                        <p class="text-primary cart-total-price">${printPrice(`${totalPrice}`)}$</p>`;
+
+        var cartCheckout = document.createElement("div");
+        cartCheckout.classList.add('btn', 'btn-success');
+        cartCheckout.innerHTML = "Checkout now!";
+        cartCheckout.onclick = () => {
+            cartCheckoutItems();
+            Swal.fire({
+                icon: 'success',
+                title: 'Thanks for dealing with us!',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            displayCartNumber();
+            displayCartItems();
+            updateCartLocalStorage();
+        }
+
+        cartFooter.appendChild(cartPriceContainer);
+        cartFooter.appendChild(cartCheckout);
+
+        document.querySelector('.cart-body-container').appendChild(cartFooter);
+    } else {
+        document.querySelector('.cart-total-price').innerHTML = printPrice(`${totalPrice}`) + '$';
+    }
+}
+
+function cartCheckoutItems(){
+    if(localStorage.getItem("orders") != null){
+        orders = JSON.parse(localStorage.getItem("orders"));
+    } else {
+        orders = [];
+    }
+
+    orders.push(cart);
+    localStorage.setItem("orders", JSON.stringify(orders));
+    cart = [];
+}
 
 function addQuantitySelector(parentObj, obj){
     var o=document.createElement("input");
