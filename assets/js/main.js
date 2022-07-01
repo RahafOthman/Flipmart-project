@@ -1,95 +1,97 @@
-var specialProducts = [
-    {   productID: "sp-0"
-        ,productName: "Canon EOS 5D",
-      discount: 20.0,
-      realPrice:  43.08,
-      numberOfStars: 5,
-      imageUrl: "https://i.im.ge/2022/06/19/uMlrux.jpg",
-      description: ""
+var specialProducts = [];
 
-    },
-    {   productID: "sp-1"
-        ,productName: "Canon EOS 5D",
-      discount: 20.0,
-      realPrice:  43.08,
-      numberOfStars: 5,
-      imageUrl: "https://i.im.ge/2022/06/19/uMlrux.jpg",
-      description: "",
+// let test = [
+//     {   productID: "sp-0"
+//         ,productName: "Canon EOS 5D",
+//       discount: 20.0,
+//       realPrice:  43.08,
+//       numberOfStars: 5,
+//       imageUrl: "https://i.im.ge/2022/06/19/uMlrux.jpg",
+//       description: ""
+
+//     },
+//     {   productID: "sp-1"
+//         ,productName: "Canon EOS 5D",
+//       discount: 20.0,
+//       realPrice:  43.08,
+//       numberOfStars: 5,
+//       imageUrl: "https://i.im.ge/2022/06/19/uMlrux.jpg",
+//       description: "",
     
-    },
-    {   productID: "sp-2"
-        ,productName: "HTC Touch HD",
-      discount: 5.0,
-      realPrice:  34.00,
-      numberOfStars: 4,
-      imageUrl: "https://i.im.ge/2022/06/19/reRgiy.jpg",
-      description: ""
+//     },
+//     {   productID: "sp-2"
+//         ,productName: "HTC Touch HD",
+//       discount: 5.0,
+//       realPrice:  34.00,
+//       numberOfStars: 4,
+//       imageUrl: "https://i.im.ge/2022/06/19/reRgiy.jpg",
+//       description: ""
     
-    },
-    {   productID: "sp-3"
-        ,productName: "HTC Touch HD",
-      discount: 5.0,
-      realPrice:  34.00,
-      numberOfStars: 4,
-      imageUrl: "https://i.im.ge/2022/06/19/reRgiy.jpg",
-      description: ""
+//     },
+//     {   productID: "sp-3"
+//         ,productName: "HTC Touch HD",
+//       discount: 5.0,
+//       realPrice:  34.00,
+//       numberOfStars: 4,
+//       imageUrl: "https://i.im.ge/2022/06/19/reRgiy.jpg",
+//       description: ""
     
-    },
-    {   productID: "sp-4"
-        ,productName: "Canon EOS 5D",
-      discount: 20.0,
-      realPrice:  43.08,
-      numberOfStars: 4,
-      imageUrl: "https://i.im.ge/2022/06/19/uMlrux.jpg",
-      description: ""
+//     },
+//     {   productID: "sp-4"
+//         ,productName: "Canon EOS 5D",
+//       discount: 20.0,
+//       realPrice:  43.08,
+//       numberOfStars: 4,
+//       imageUrl: "https://i.im.ge/2022/06/19/uMlrux.jpg",
+//       description: ""
     
-    },
-    {   productID: "sp-5"
-        ,productName: "Canon EOS 5D",
-      discount: 20.0,
-      realPrice:  43.08,
-      numberOfStars: 3,
-      imageUrl: "https://i.im.ge/2022/06/19/uMlrux.jpg",
-      description: ""
+//     },
+//     {   productID: "sp-5"
+//         ,productName: "Canon EOS 5D",
+//       discount: 20.0,
+//       realPrice:  43.08,
+//       numberOfStars: 3,
+//       imageUrl: "https://i.im.ge/2022/06/19/uMlrux.jpg",
+//       description: ""
     
-    },
-    {   productID: "sp-6"
-        ,productName: "HTC Touch HD",
-      discount: 5.0,
-      realPrice:  34.00,
-      numberOfStars: 4,
-      imageUrl: "https://i.im.ge/2022/06/19/reRgiy.jpg",
-      description: ""
+//     },
+//     {   productID: "sp-6"
+//         ,productName: "HTC Touch HD",
+//       discount: 5.0,
+//       realPrice:  34.00,
+//       numberOfStars: 4,
+//       imageUrl: "https://i.im.ge/2022/06/19/reRgiy.jpg",
+//       description: ""
     
-    },
-    {   productID: "sp-7"
-        ,productName: "HTC Touch HD",
-      discount: 5.0,
-      realPrice:  34.00,
-      numberOfStars: 4,
-      imageUrl: "https://i.im.ge/2022/06/19/reRgiy.jpg",
-      description: ""
+//     },
+//     {   productID: "sp-7"
+//         ,productName: "HTC Touch HD",
+//       discount: 5.0,
+//       realPrice:  34.00,
+//       numberOfStars: 4,
+//       imageUrl: "https://i.im.ge/2022/06/19/reRgiy.jpg",
+//       description: ""
     
-    },
-    {   productID: "sp-8"
-        ,productName: "Canon EOS 5D",
-      discount: 20.0,
-      realPrice:  43.08,
-      numberOfStars: 5,
-      imageUrl: "https://i.im.ge/2022/06/19/uMlrux.jpg",
-      description: ""
+//     },
+//     {   productID: "sp-8"
+//         ,productName: "Canon EOS 5D",
+//       discount: 20.0,
+//       realPrice:  43.08,
+//       numberOfStars: 5,
+//       imageUrl: "https://i.im.ge/2022/06/19/uMlrux.jpg",
+//       description: ""
     
-    },
-    {   productID: "sp-9"
-        ,productName: "Canon EOS 5D",
-      discount: 20.0,
-      realPrice:  43.08,
-      numberOfStars: 5,
-      imageUrl: "https://i.im.ge/2022/06/19/uMlrux.jpg",
-      description: ""
+//     },
+//     {   productID: "sp-9"
+//         ,productName: "Canon EOS 5D",
+//       discount: 20.0,
+//       realPrice:  43.08,
+//       numberOfStars: 5,
+//       imageUrl: "https://i.im.ge/2022/06/19/uMlrux.jpg",
+//       description: ""
     
-    }
-];
+//     }
+// ];
 
 let tempProductsDeals = [
     {productName: "Canon EOS 5D",
@@ -154,6 +156,12 @@ window.onload = () => {
         displayCartNumber();
     } else {
         cart = [];
+    }
+
+    if(localStorage.getItem("specialProducts") != null){
+        specialProducts = JSON.parse(localStorage.getItem("specialProducts"));
+    } else {
+        specialProducts = [];
     }
 
     if(window.outerWidth < 768) {

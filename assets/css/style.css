@@ -1,12 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
-body{
+/* body{
    box-sizing: border-box;
    font-family: 'Poppins', sans-serif;
     font-weight: 400;
    font-size: 14px;
    line-height: 20px;
    background: #f1f3f6;
+} */
+
+body {
+    box-sizing: border-box;
+   background: #f1f3f6;
 }
+
 .capitalize{ 
    text-transform: capitalize;
 }
@@ -533,6 +539,8 @@ body{
     text-shadow: 1px 1px 3px;
     letter-spacing: 3px;
 }
+
+
 
 @media (max-width: 768px) {
     .special-banner-description {

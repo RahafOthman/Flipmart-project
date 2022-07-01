@@ -96,16 +96,25 @@ function displayCartFooter(totalPrice){
         cartCheckout.classList.add('btn', 'btn-success');
         cartCheckout.innerHTML = "Checkout now!";
         cartCheckout.onclick = () => {
-            cartCheckoutItems();
-            Swal.fire({
-                icon: 'success',
-                title: 'Thanks for dealing with us!',
-                showConfirmButton: false,
-                timer: 2500
-            });
-            displayCartNumber();
-            displayCartItems();
-            updateCartLocalStorage();
+            if(cart.length !== 0){
+                cartCheckoutItems();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thanks for dealing with us!',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+                displayCartNumber();
+                displayCartItems();
+                updateCartLocalStorage();
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Add items to the cart first!',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+            }
         }
 
         cartFooter.appendChild(cartPriceContainer);
@@ -124,9 +133,19 @@ function cartCheckoutItems(){
         orders = [];
     }
 
-    orders.push(cart);
-    localStorage.setItem("orders", JSON.stringify(orders));
-    cart = [];
+    
+    if(cart.length !== 0) {
+        orders.push(cart);
+        localStorage.setItem("orders", JSON.stringify(orders));
+        cart = [];
+    } else {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Add items to the cart first!',
+            showConfirmButton: false,
+            timer: 2500
+        });
+    }
 }
 
 function addQuantitySelector(parentObj, obj){
