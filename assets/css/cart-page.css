@@ -1,0 +1,18 @@
+
+.cart-body {
+    min-height: 80vh;
+    min-width: 100%;
+}
+
+.cart-body-container {
+    min-height: 60vh;
+}
+
+.cart-item-row{
+    /* overflow: hidden; */
+    box-shadow: 0px 1px 0px 0px;
+}
+
+.cart-item-row:last-child {
+    box-shadow: none;
+}
