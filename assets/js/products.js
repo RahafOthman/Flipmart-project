@@ -151,7 +151,7 @@ function displayProducts(){
     var holder="";
     for(let i = 0 ; i < products.length ; i++){
         holder += `
-            <div class="special-product-item m-3 w-20">
+            <div class="special-product-item col-12 col-md-3 m-1">
                         <div class="special-product-image position-relative">
                             <img src="${products[i].imageUrl}" alt="${products[i].productName}" class="special-product-img w-100">
                             <div class="position-absolute special-products-icons w-100 text-center">
@@ -166,8 +166,8 @@ function displayProducts(){
                             <div class="currentPrice me-2">Discount: ${products[i].discount}%</div>
                             <span class="currentPrice">Real Price: $${printPrice(`${products[i].realPrice}`)}</span>
                             <div class="special-product-buttons d-flex flex-column flex-md-row product-${i} w-100 h-100 position-absolute justify-content-evenly align-items-center">
-                                <button type="button" onclick="deleteProduct(${i})" class="btn btn-danger">Delete</button>
-                                <button type="button" onclick="fillForm(${i})" class="btn btn-secondary">Update</button>  
+                                <button type="button" onclick="deleteProduct(${i})" class="btn btn-danger w-35">Delete</button>
+                                <button type="button" onclick="fillForm(${i})" class="btn btn-secondary w-35">Update</button>  
                             </div>
                         </div>
             </div>
@@ -373,7 +373,7 @@ function searchProduct(name){
     for(let i = 0 ; i < products.length ; i++){
         if(products[i].productName.toLowerCase().includes(name.toLowerCase())){
             holder += `
-                    <div class="special-product-item m-3 w-20">
+                    <div class="special-product-item col-12 col-md-3 m-1">
                                 <div class="special-product-image position-relative">
                                     <img src="${products[i].imageUrl}" alt="${products[i].productName}" class="special-product-img w-100">
                                     <div class="position-absolute special-products-icons w-100 text-center">
@@ -388,8 +388,8 @@ function searchProduct(name){
                                     <div class="currentPrice me-2">Discount: ${products[i].discount}%</div>
                                     <span class="currentPrice">Real Price: $${printPrice(`${products[i].realPrice}`)}</span>
                                     <div class="special-product-buttons d-flex flex-column flex-md-row product-${i} w-100 h-100 position-absolute justify-content-evenly align-items-center">
-                                        <button type="button" onclick="deleteProduct(${i})" class="btn btn-danger h-50 w-50">Delete</button>
-                                        <button type="button" onclick="fillForm(${i})" class="btn btn-secondary h-50 w-50">Update</button>  
+                                        <button type="button" onclick="deleteProduct(${i})" class="btn btn-danger w-35">Delete</button>
+                                        <button type="button" onclick="fillForm(${i})" class="btn btn-secondary w-35">Update</button>  
                                     </div>
                                 </div>
                     </div>

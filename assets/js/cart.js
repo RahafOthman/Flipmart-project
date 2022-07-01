@@ -58,9 +58,9 @@ function displayCartItems(){
         itemPrice = (item.quantity * parseFloat(findPriceAfterDiscount(item.realPrice, item.discount)));
         totalPrice += itemPrice;
         cartItems += `
-            <div class="cart-item-row w-100 pb-3 mb-3 d-flex flex-column flex-md-row justify-content-between">
-                <div class="cart-item-row--leftside d-flex flex-row my-auto pb-3">
-                    <img src="${item.imageUrl}" alt="${item.productName}" class="cart-item-img w-20"/>
+            <div class="cart-item-row w-100 pb-3 mb-3 d-flex flex-column flex-md-row justify-content-between"> 
+                <div class="cart-item-row--leftside d-flex flex-column flex-md-row align-items-center pb-3">
+                    <img src="${item.imageUrl}" alt="${item.productName}" class="cart-item-img w-50 w-md-20"/>
                     <h3 class="text-styles fs-4 ps-2 my-auto">${item.productName}</h3>
                 </div>
                 <div class="cart-item-row--rightside-${index} d-flex flex-row justify-content-end">
@@ -85,7 +85,7 @@ function displayCartItems(){
 function displayCartFooter(totalPrice){
     if(!document.querySelector('.cart-footer')){
         var cartFooter = document.createElement('div');
-        cartFooter.classList.add('cart-footer', 'w-25', 'mb-3', 'd-flex', 'flex-column', 'justify-content-center', 'mx-auto');
+        cartFooter.classList.add('cart-footer', 'w-100', 'mb-3', 'd-flex', 'flex-column', 'justify-content-center', 'mx-auto');
 
         var cartPriceContainer = document.createElement("div");
         cartPriceContainer.classList.add('w-100', 'mb-3', 'd-flex', 'flex-row', 'text-styles', 'font-bold', 'fs-6', 'justify-content-center');
@@ -133,7 +133,7 @@ function cartCheckoutItems(){
         orders = [];
     }
 
-    
+
     if(cart.length !== 0) {
         orders.push(cart);
         localStorage.setItem("orders", JSON.stringify(orders));

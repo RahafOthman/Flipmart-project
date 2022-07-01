@@ -372,7 +372,7 @@ function displayAddedProduct(productObj){
     background.onclick = closeAddedProduct;
 
     var displayScreen = document.createElement("div");
-    displayScreen.classList.add('w-50', 'h-30', 'position-absolute', 'bg-white', 'add-to-cart-content');
+    displayScreen.classList.add('w-50', 'h-35', 'h-md-30', 'position-absolute', 'bg-white', 'add-to-cart-content');
 
     let displayContent = document.createElement("div");
     displayContent.classList.add('w-100', 'h-100', 'd-flex', 'flex-row', 'position-relative');
@@ -381,15 +381,15 @@ function displayAddedProduct(productObj){
     
     displayCartNumber();
 
-    let content = ` <div class="w-35 h-100 position-relative d-flex flex-row add-to-cart-leftside">
+    let content = ` <div class="w-35 h-100 position-relative d-flex flex-column flex-md-row justify-content-center align-items-center add-to-cart-leftside">
                         <div class="w-60 h-100 position-relative">
                             <img src="${productObj.imageUrl}" alt="${productObj.productName}" class="w-60 h-50 position-relative rounded h-v-center">
                         </div>
                         <div class="me-2 h-100 w-40 text-center">
-                            <p class="position-relative vertical-center add-to-cart-productName">${productObj.productName}</p>
+                            <p class="position-relative vertical-center add-to-cart-productName fs-6">${productObj.productName}</p>
                         </div>
                     </div>
-                    <div class="w-65 h-100 position-relative add-to-cart-rightside text-center">
+                    <div class="w-65 h-100 position-relative add-to-cart-rightside text-center d-flex flex-column justify-content-center">
                         <p class="mt-3 fs-5 text-styles text-primary">Added to cart!</p>
                         <div class="text-start d-flex flex-row justify-content-evenly fs-6 font-bold">
                             <div class="d-flex flex-column">
