@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flipmart</title>
+    <link rel="icon" type="image/x-icon" href="../assets/img/icon.jpg">
+    <!--Awsom-->
+    <link rel="stylesheet" href="../assets/css/all.min.css"/>
+    <!-- Bootstrap 5.1.3 -->
+    <link rel="stylesheet" href="../assets/css/external/bootstrap.min.css">
+    <!-- sweet alert -->
+    <link rel="stylesheet" href="../assets/css/external/sweetalert2.min.css">
+    <!--style file -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/common.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> -->
+    
+</head>
+<body>
+ 
+    <div class="container">
+      <form class="m-5 shadow-lg p-3 mb-5 bg-white rounded">
+        <div class="form-group mb-2">
+          <label for="inputProductName1">Product Name</label>
+          <input type="text" class="form-control productInputs" id="inputProductName1" placeholder="Product Name">
+        </div>
+        <div class="form-group mb-2">
+          <label for="inputProductDiscount1">Product Discount</label>
+          <input type="number" class="form-control productInputs" id="inputProductDiscount1" placeholder="Product Discount">
+        </div>
+        <div class="form-group mb-2">
+          <label for="inputProductPrice1">Product Price</label>
+          <input type="number" class="form-control productInputs" id="inputProductPrice1" placeholder="Product Price">
+        </div>
+        <div class="form-group mb-2">
+          <label for="inputProductStars1">Product Stars</label>
+          <input type="number" class="form-control productInputs" id="inputProductStars1" placeholder="Product Stars">
+        </div>
+        <div class="form-group mb-2">
+          <label for="inputProductDescription1">Product Description</label>
+          <input type="text" class="form-control productInputs" id="inputProductDescription1" placeholder="Product Description">
+        </div>
+
+        <div class="form-group mb-2">
+          <label for="inputProductImage1">Product Image URL</label>
+          <input type="text" class="form-control productInputs" id="inputProductImage1" name="filename" placeholder="Product's Image URL">
+        </div>
+
+        <div class="text-center">
+          <button type="button" id="addBtn" class="btn btn-primary" disabled>Add Product</button>
+
+          <!-- this clear's button type can be changed into "reset". Pressing this button will automatically clear all the form's input fields -->
+          <button type="button" id="clearBtn" class="btn btn-dark">Clear</button>
+        </div>
+      </form>
+
+      <div class="text-center">
+        <button id="deleteAllBtn" class="btn btn-danger">Delete All Products</button>
+      </div>
+
+      <div class="row my-2">  
+        <input type="text" class="min-h-30" onkeyup="searchProduct(this.value)" id="search" placeholder="Search here by name..">
+      </div>
+
+      <!-- <table class="table table-striped my-3 text-center">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Discount</th>
+            <th scope="col">Real Price</th>
+            <th scope="col"># Of Stars</th>
+            <th scope="col">Image</th>
+            <th scope="col">Description</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody id="products">
+  
+        </tbody>
+      </table>   -->
+
+      <div class="bg-white pt-2 mt-5">
+        <h2 class="text-styles text-center mb-3">Current Special Products</h2>
+        <div class="w-100 bg-white d-flex flex-row flex-wrap justify-content-evenly" id="products">
+
+        </div>
+      </div>
+
+    </div>
+
+     <!-- bootstrap js file -->
+     <script src="../assets/js/external/bootstrap.bundle.min.js"></script>
+     <!-- sweet alert -->
+       <script src="../assets/js/external/sweetalert2.min.js"></script>
+     <!-- custom js file -->
+       <script src="../assets/js/products.js"></script>
+</body>
+</html>

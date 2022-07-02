@@ -1,0 +1,15 @@
+.special-product-buttons {
+    transition: all 0.5s ease-in-out;
+    visibility: hidden;
+    background-color: #fff !important;
+    /* bottom: -100%; */
+    bottom: 0%;
+    transform: scale(0.1);
+}
+
+.special-product-item:hover .special-product-buttons{
+    visibility: visible;
+    /* bottom: 0%; */
+    transform: scale(1);
+    left: 0%;
+}
