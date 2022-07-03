@@ -168,6 +168,9 @@ body {
     border: 1px solid #e2e2e2
 }
 
+
+/*end header section*/
+/*start wrapper section*/
 #wrapper{
     padding-top:30px;
     background:#f1f3f6;
@@ -237,8 +240,28 @@ body {
     background: #fff;
     width: 90%;
     height: 500px;
- 
 }
+
+#wrapper .menu-conent{
+    width: 100%;
+    background: #fff;
+    position: relative;
+    top: 100%;
+    left: 0;
+    padding: 11px 0;
+    list-style: none;
+     background: black;
+}
+
+#wrapper .menu-conent .menu-conent-items{
+    background: black;
+    display: block;
+    position: relative;
+    padding: 0;
+    color: #757575;
+    list-style:none;
+}
+
 /*footer*/
 .footer-top-wrapper{
     padding: 47px 0 40px;
@@ -351,57 +374,7 @@ body {
     border:1px solid #e2e2e2;
     background:#fff;
 }
-/*admin page style*/
-/*left part */
-/*logo part*/
-.admin-main-page .admin-main-page-left{
-    background-color: #252525;
-    color: #fff;
-    height: 100vh;  
-}
- /*
-.admin-logo{
-   background-color: #464545;
-}
- 8*/
-.admin-main-page-left-inner{
-    margin-top: 90px;
-}
-.admin-left-items{
-    color:#9da5b1;
-    background:#252525;
-    font-size: 18px;
-    border:none; 
-    margin-bottom:20px;
-}
-.admin-icons{
-    color:#9da5b1;
-}
-.admin-search-btn{
-    color:#266cfb ; 
-  
-}
-.admin-profile-image{
-    text-decoration:none;
-    color:#9da5b1;
-}
-/*
-.admin-main-page .admin-main-page-categories,.admin-main-page-account{
-    color:#fff ; 
-    box-shadow: 0px 5px 10px 0px  rgb(38, 108, 251, 0.7)  ; 
-    
-    rgba(0,255,255,0.7)
-}
-.admin-main-page .admin-main-page-categories:hover ,.admin-main-page-account:hover{
-    transform: translateY(-5px);
-  box-shadow: 0px 10px 20px 2px rgb(38, 108, 251, 0.7);
-}
-*/
-.admin-categories-btn{
-    border: none;
-    width: 40px;
-    height: 25px;
- }
+
 .special-product-item {
     overflow: hidden;
 }

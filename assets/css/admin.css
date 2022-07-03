@@ -13,3 +13,74 @@
     transform: scale(1);
     left: 0%;
 }
+
+/*admin page style*/
+/*left part */
+/*logo part*/
+.admin-main-page .admin-main-page-left{
+    background-color: #252525;
+    color: #fff;
+    height: 100vh;  
+}
+ /*
+.admin-logo{
+   background-color: #464545;
+}
+ 8*/
+.admin-main-page-left-inner{
+    margin-top: 90px;
+}
+.admin-left-items{
+    color:#9da5b1;
+    background:#252525;
+    font-size: 18px;
+    border:none; 
+    margin-bottom:20px;
+}
+.admin-icons{
+    color:#9da5b1;
+}
+.admin-search-btn{
+    color:#266cfb ; 
+  
+}
+.admin-profile-image{
+    text-decoration:none;
+    color:#9da5b1;
+}
+.admin-categories-btn{
+    border: none;
+    width: 40%;
+    height: 40px;
+    border-radius: 20%;
+}
+.admin-display-item{
+    border:1px solid gray ; 
+    width:45% ; 
+    text-align: left;
+    border-radius: 3px;
+}
+.admin-display-btn{
+    background-color: #266cfb;
+    color: #fff;
+    width: 100%;
+    border:none;  
+}
+.admin-display-label-category{
+    padding:10px 7px;
+}
+.admin-display-btn-category{
+    padding:7px 10px;
+}
+/*
+.admin-main-page .admin-main-page-categories,.admin-main-page-account{
+    color:#fff ; 
+    box-shadow: 0px 5px 10px 0px  rgb(38, 108, 251, 0.7)  ; 
+    
+    rgba(0,255,255,0.7)
+}
+.admin-main-page .admin-main-page-categories:hover ,.admin-main-page-account:hover{
+    transform: translateY(-5px);
+  box-shadow: 0px 10px 20px 2px rgb(38, 108, 251, 0.7);
+}
+*/
