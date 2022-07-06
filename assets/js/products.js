@@ -31,6 +31,7 @@ addBtn.onclick = function(){
 
 // custom variables
 
+let imageURLHolder;
 var productInputs = document.querySelectorAll('.productInputs')
 var productsContainer = document.getElementById('products');
 var inputsRegex = [
@@ -39,7 +40,7 @@ var inputsRegex = [
                  , /^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|1000)(\.{1}[0-9]{1,5}|\.{0})$/ 
                  , /^[0-5]$/
                  , /^[A-Za-z 0-9]{0,100}$/
-                 , /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/
+                 , /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i
                 ];
 var inputsErrorMessage = [
                     "Name should start with a capital letter & with a length of 3-25",
@@ -47,7 +48,7 @@ var inputsErrorMessage = [
                     "Range of Price should be between 1.0 - 1000 with a decimal number of 5 digits maximum",
                     "Number of stars should be between 0-5",
                     "Maximum description length is 100 letter",
-                    "Please enter a valid url"
+                    "Please enter a valid image"
                 ];
 var inputsError = [];
 var products;
@@ -61,6 +62,12 @@ window.onload = function(){
     } else {
         products = [];
     }
+
+    // products.forEach((item,index) => {
+    //     item = {...item, imageName:""};
+    //     products.splice(index, 1, item);
+    // });
+    // updateLocalStorage();
     checkAvailableProducts();
 }
 
@@ -69,13 +76,22 @@ function updateLocalStorage(){
 }
 
 productInputs.forEach((input,index) => {
-    console.log(input, input.value);
+
     input.addEventListener("keyup", function(){
         checkInput(input,index)
     });
+
     input.addEventListener("change", function(){
+        if(input.getAttribute("id") === "inputProductImage1"){
+            const reader = new FileReader();
+            reader.addEventListener("load", ()=>{
+                imageURLHolder=reader.result;
+            });
+            reader.readAsDataURL(inputProductImage.files[0]);
+        }
         checkInput(input,index)
     });
+
 });
 
 function checkInput(input,index){
@@ -93,6 +109,7 @@ function checkInput(input,index){
             input.parentElement.appendChild(para);
         }
     } else {
+        checkAllInputs();
         productInputs[index].classList.remove("is-invalid");
         productInputs[index].classList.add("is-valid");
         if(input.parentElement.childElementCount == 3){
@@ -100,7 +117,6 @@ function checkInput(input,index){
             input.parentElement.removeChild(input.parentElement.children[2]);
         }
     }
-    checkAllInputs();
 }
 
 function checkAllInputs(){
@@ -134,11 +150,13 @@ function clearForm(){
 function fillForm(index){
     let product = products[index];
 
+    console.log(product);
+
     inputProductName.value = product.productName;
     inputProductDiscount.value = product.discount;
     inputProductPrice.value = product.realPrice;
     inputProductDescription.value = product.description;
-    inputProductImage.value = product.imageUrl;
+    inputProductImage.value = product.imageName;
     inputProductStars.value = product.numberOfStars;
 
     addBtn.innerHTML = "Update Product";
@@ -240,15 +258,17 @@ function viewProduct(index){
 }
 
 function addProduct(){
-    
+
     var product = {
         productName: inputProductName.value,
         discount: inputProductDiscount.value,
         realPrice:    inputProductPrice.value,
-        imageUrl:    inputProductImage.value,
+        imageUrl:    imageURLHolder,
+        imageName:    inputProductImage.files[0].name,
         numberOfStars:    inputProductStars.value,
         description: inputProductDescription.value
     }
+    console.log(product);
     products.push(product);
     updateLocalStorage();
     Swal.fire({
@@ -308,14 +328,17 @@ function updateItem(){
             confirmButtonText: 'Update'
           }).then((result) => {
             if (result.isConfirmed) {
+
                 var product = {
                     productName: inputProductName.value,
                     discount: inputProductDiscount.value,
                     realPrice:    inputProductPrice.value,
-                    imageUrl:    inputProductImage.value,
+                    imageUrl:    imageURLHolder,
+                    imageName:    inputProductImage.files[0].name,
                     numberOfStars:    inputProductStars.value,
                     description: inputProductDescription.value
                 }
+                console.log(product);
                 products.splice(updateIndex,1,product);
                 updateLocalStorage(); 
                 
