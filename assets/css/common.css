@@ -65,6 +65,11 @@
     font-weight: bold;
 }
 
+.bg-img {
+    background-repeat: no-repeat;
+    background-size: cover; 
+}
+
 @media (min-width: 768px) {
     .h-md-30 {
         height: 30% !important;

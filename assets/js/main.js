@@ -216,6 +216,7 @@ window.onload = () => {
     });
 }
 
+
 function displayCartNumber(){
     let cartValues = findCartTotalAmount(cart);
     

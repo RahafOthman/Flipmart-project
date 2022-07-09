@@ -519,6 +519,14 @@ body {
 }
 
 
+.Weather {
+    margin: auto;
+    min-height: 250px;
+    background: url(../img/spots_background_light_blur_68629_1920x1080.jpg);
+    color: white;
+}
+
+
 
 @media (max-width: 768px) {
     .special-banner-description {
