@@ -32,6 +32,7 @@ addBtn.onclick = function(){
 // custom variables
 
 let imageURLHolder;
+let checkImg=true;
 var productInputs = document.querySelectorAll('.productInputs')
 var productsContainer = document.getElementById('products');
 var inputsRegex = [
@@ -39,7 +40,7 @@ var inputsRegex = [
                  , /^([0-9]{1,2}(\.{1}[0-9]{1,5}|\.{0})|100)$/
                  , /^([1-9]|[1-9][0-9]|[1-9][0-9][0-9]|1000)(\.{1}[0-9]{1,5}|\.{0})$/ 
                  , /^[0-5]$/
-                 , /^[A-Za-z 0-9]{0,100}$/
+                 , /^[A-Za-z 0-9 \.\?\,]{0,1000}$/
                  , /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i
                 ];
 var inputsErrorMessage = [
@@ -47,7 +48,7 @@ var inputsErrorMessage = [
                     "Range of Discount should be between 0.0 - 100.0",
                     "Range of Price should be between 1.0 - 1000 with a decimal number of 5 digits maximum",
                     "Number of stars should be between 0-5",
-                    "Maximum description length is 100 letter",
+                    "Maximum description length is 1000 characters",
                     "Please enter a valid image"
                 ];
 var inputsError = [];
@@ -86,6 +87,7 @@ productInputs.forEach((input,index) => {
             const reader = new FileReader();
             reader.addEventListener("load", ()=>{
                 imageURLHolder=reader.result;
+                checkImg = true;
             });
             reader.readAsDataURL(inputProductImage.files[0]);
         }
@@ -95,6 +97,8 @@ productInputs.forEach((input,index) => {
 });
 
 function checkInput(input,index){
+    if((index === productInputs.length-1) && !checkImg) return;
+
     if(!inputsRegex[index].exec(productInputs[index].value)){
         productInputs[index].classList.remove("is-valid");
         productInputs[index].classList.add("is-invalid");
@@ -121,6 +125,8 @@ function checkInput(input,index){
 
 function checkAllInputs(){
     for(let i = 0 ; i < productInputs.length ; i++) {
+        if((i === productInputs.length-1) && !checkImg) break;
+
         if(!inputsRegex[i].exec(productInputs[i].value)){
             addBtn.setAttribute("disabled","true");
             inputsError.push(inputsErrorMessage[i]);
@@ -144,10 +150,13 @@ function clearForm(){
     }
     addBtn.innerHTML = "Add Product";
     updateFlag = false;
+    checkImg = true;
     addBtn.setAttribute("disabled","true");
 }
 
 function fillForm(index){
+    clearForm();
+
     let product = products[index];
 
     console.log(product);
@@ -156,8 +165,9 @@ function fillForm(index){
     inputProductDiscount.value = product.discount;
     inputProductPrice.value = product.realPrice;
     inputProductDescription.value = product.description;
-    inputProductImage.value = product.imageName;
     inputProductStars.value = product.numberOfStars;
+
+    checkImg = false;
 
     addBtn.innerHTML = "Update Product";
     checkAllInputs();
@@ -173,7 +183,7 @@ function displayProducts(){
                         <div class="special-product-image position-relative">
                             <img src="${products[i].imageUrl}" alt="${products[i].productName}" class="special-product-img w-100">
                             <div class="position-absolute special-products-icons w-100 text-center">
-                                <i class="fa-solid fa-eye mx-1 p-2 shadow-lg bg-white rounded" onclick="viewProduct(${i})"></i>
+                                <i class="fa-solid fa-eye mx-1 p-2 shadow-lg bg-white rounded" onclick="popupScreen(${i})"></i>
                             </div>
                         </div>
                         <p class="special-product-name text-center my-3">${products[i].productName}</p>
@@ -193,68 +203,6 @@ function displayProducts(){
     }
     productsContainer.innerHTML = holder;
 
-}
-
-function viewProduct(index){
-    function displayAddedProduct(productObj){
-        var topContainer = document.createElement("div");
-        topContainer.classList.add('w-100', 'h-100', 'position-fixed', 'add-to-cart-container');
-    
-        var background = document.createElement("div");
-        background.classList.add('w-100', 'h-100', 'position-absolute', 'bg-dark', 'opacity-75');
-        background.onclick = closeAddedProduct;
-    
-        var displayScreen = document.createElement("div");
-        displayScreen.classList.add('w-50', 'h-30', 'position-absolute', 'bg-white', 'add-to-cart-content');
-    
-        let displayContent = document.createElement("div");
-        displayContent.classList.add('w-100', 'h-100', 'd-flex', 'flex-row', 'position-relative');
-    
-        let cartValues = findCartTotalAmount(cart);
-        
-        displayCartNumber();
-    
-        let content = ` <div class="w-35 h-100 position-relative d-flex flex-row add-to-cart-leftside">
-                            <div class="w-60 h-100 position-relative">
-                                <img src="${productObj.imageUrl}" alt="${productObj.productName}" class="w-60 h-50 position-relative rounded h-v-center">
-                            </div>
-                            <div class="me-2 h-100 w-40 text-center">
-                                <p class="position-relative vertical-center add-to-cart-productName">${productObj.productName}</p>
-                            </div>
-                        </div>
-                        <div class="w-65 h-100 position-relative add-to-cart-rightside text-center">
-                            <p class="mt-3 fs-5 text-styles text-primary">Added to cart!</p>
-                            <div class="text-start d-flex flex-row justify-content-evenly fs-6 font-bold">
-                                <div class="d-flex flex-column">
-                                    <p>Products count:</p>
-                                    <p>Total Price:</p>
-                                </div>
-                                <div class="d-flex flex-column">
-                                    <p>${cartValues.quantity}</p>
-                                    <p>${printPrice(`${cartValues.price}`)}$</p>
-                                </div>
-                            </div>
-                            <div class="mb-5">
-                                <div class="btn btn-primary" onclick="closeAddedProduct()">
-                                    Continue Shopping..
-                                </div>
-                                <a href="assets/html/cart.html" class="btn btn-primary">
-                                    Go to Checkout!
-                                </a>
-                            </div>
-                        </div>`
-    
-        displayContent.innerHTML = content;
-    
-        displayScreen.appendChild(displayContent);
-    
-        
-        topContainer.appendChild(background);
-        topContainer.appendChild(displayScreen);
-    
-        document.body.insertAdjacentElement('afterbegin',topContainer);
-    
-    }
 }
 
 function addProduct(){
@@ -333,10 +281,15 @@ function updateItem(){
                     productName: inputProductName.value,
                     discount: inputProductDiscount.value,
                     realPrice:    inputProductPrice.value,
-                    imageUrl:    imageURLHolder,
-                    imageName:    inputProductImage.files[0].name,
+                    imageUrl:     products[updateIndex].imageUrl,
+                    imageName:    products[updateIndex].imageName,
                     numberOfStars:    inputProductStars.value,
                     description: inputProductDescription.value
+                }
+
+                if(checkImg){
+                    product['imageUrl'] = imageURLHolder;
+                    product['imageName'] = inputProductImage.files[0].name;
                 }
                 console.log(product);
                 products.splice(updateIndex,1,product);
@@ -400,7 +353,7 @@ function searchProduct(name){
                                 <div class="special-product-image position-relative">
                                     <img src="${products[i].imageUrl}" alt="${products[i].productName}" class="special-product-img w-100">
                                     <div class="position-absolute special-products-icons w-100 text-center">
-                                        <i class="fa-solid fa-eye mx-1 p-2 shadow-lg bg-white rounded" onclick="viewProduct(${i})"></i>
+                                        <i class="fa-solid fa-eye mx-1 p-2 shadow-lg bg-white rounded" onclick="popupScreen(${i})"></i>
                                     </div>
                                 </div>
                                 <p class="special-product-name text-center my-3">${products[i].productName}</p>
@@ -448,4 +401,34 @@ function findStars(numberOfStars){
         stars += `<i class="far fa-star"></i>`;
     }
     return stars;
+}
+
+
+function popupScreen(productIndex){
+    let section = document.createElement('div');
+    
+    section.classList.add('popup-section','position-fixed','start-0','w-100','h-100');
+
+    let popupHTML= `
+            <div class="position-absolute w-100 h-100 bg-black bg-opacity-75" onClick="closePopupScreen()"></div>
+            <div class="position-absolute top-0 end-0 text-white m-3"><i class="fa-solid fa-xmark popup-xmark fs-2" onClick="closePopupScreen()"></i></div>
+            <div class="popup-section-body bg-light position-absolute text-white d-flex flex-column">
+                <h3 class="fs-3 text-center text-secondary text-styles py-3 border-bottom">${products[productIndex].productName}'s Description</h3>
+                <div class="w-100 popup-content col-6 text-dark opacity-75 text-styles p-2">
+                    <p>${products[productIndex].description}</p>
+                </div>
+            </div>
+        `;
+    section.innerHTML = popupHTML;
+    document.body.appendChild(section);
+}
+
+function closePopupScreen(){
+    let section = document.querySelector('.popup-section');
+    if(section === null) return;
+    section.style.top = '-100%';
+    section.style.visibility = "hidden";
+    setTimeout(() => {
+        document.body.removeChild(section);
+    }, 600);
 }

@@ -526,7 +526,32 @@ body {
     color: white;
 }
 
+.popup-section{
+    z-index: 9999;
+    top: 0%;
+    transition: all 0.5s ease-in-out;
+}
 
+.popup-xmark {
+    cursor: pointer;
+}
+
+.popup-section .popup-section-body {
+    min-width: 40%;
+    height: 450px;
+    overflow: hidden;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.popup-content {
+    overflow-y: scroll;
+}
+
+.return-icon {
+    cursor: pointer;
+}
 
 @media (max-width: 768px) {
     .special-banner-description {

@@ -32,7 +32,6 @@ function getWeather(location){
     
     $.ajax(settings).done(function (response) {
         let weather = JSON.parse(response.substring(5,response.length - 1));
-        console.log(weather);
         let weatherHTML = `
             <div class="d-flex flex-column">
                 <div class="text-center fs-1 p-4">
